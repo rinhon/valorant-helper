@@ -75,12 +75,13 @@ class StepOne(QWidget):
             
             # 为卡片添加内容
             card_layout = QVBoxLayout(card)
-            card_layout.setContentsMargins(0, 0, 0, 0)  # 移除内边距
+            card_layout.setContentsMargins(8, 8, 8, 8)  # 添加内边距
             card_layout.setSpacing(0)
             
             # 创建背景图片标签
             bg_label = QLabel()
-            bg_label.setFixedSize(250, 150)
+            bg_label.setFixedSize(234, 110)  # 调整大小以适应内边距
+            bg_label.setStyleSheet("border-radius: 4px;")  # 添加圆角
             
             # 加载图片
             url_path = map_data.get('url', '')
@@ -88,10 +89,12 @@ class StepOne(QWidget):
                 url_path = url_path[1:]  # 移除开头的斜杠
             pixmap = QPixmap(url_path)
             if not pixmap.isNull():
-                # 缩放图片以适应卡片大小
-                pixmap = pixmap.scaled(250, 150, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
+                # 缩放图片以适应新的标签大小
+                pixmap = pixmap.scaled(234, 110, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
                 bg_label.setPixmap(pixmap)
                 bg_label.setScaledContents(True)
+                # 设置图片圆角
+                bg_label.setStyleSheet("border-radius: 4px; background-color: transparent;")
             
             # 创建地图名称标签
             name_label = QLabel(map_data.get('chinese', '未知地图'))
@@ -118,12 +121,12 @@ class StepOne(QWidget):
             # 添加鼠标悬停效果
             card.setStyleSheet("""
                 CardWidget {
-                    background-color: white;
+                    background-color: #f0f0f0;
                     border: 1px solid #e0e0e0;
                     border-radius: 8px;
                 }
                 CardWidget:hover {
-                    border: 2px solid #0078d4;
+                    border: 2px solid rgb(250,68,84);
                 }
             """)
             
@@ -154,20 +157,20 @@ class StepOne(QWidget):
             if self.selected_card:
                 self.selected_card.setStyleSheet("""
                     CardWidget {
-                        background-color: white;
+                        background-color: #f0f0f0;
                         border: 1px solid #e0e0e0;
                         border-radius: 8px;
                     }
                     CardWidget:hover {
-                        border: 2px solid #0078d4;
+                        border: 2px solid rgb(250,68,84);
                     }
                 """)
             
             # 高亮当前选择的卡片
             card.setStyleSheet("""
                 CardWidget {
-                    background-color: white;
-                    border: 2px solid #0078d4;
+                    background-color: #f0f0f0;
+                    border: 2px solid rgb(250,68,84);
                     border-radius: 8px;
                 }
             """)
@@ -227,3 +230,9 @@ class StepOne(QWidget):
         # 清除选择状态
         self.selected_map = None
         self.selected_card = None
+    
+    def show_content(self):
+        """重新显示内容"""
+        # 显示所有卡片
+        for card in self.cards:
+            card.show()

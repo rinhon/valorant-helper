@@ -28,11 +28,13 @@ from step_two import StepTwo
 class ValorantWizard(QMainWindow):
     def __init__(self):
         super().__init__()
+        # 设置窗口图标
         
         # 设置窗口标题和大小
         self.setWindowTitle("超级无敌打瓦点位神器")
         self.resize(1000, 700)
-        
+        self.setWindowIcon(QIcon("./icon/valorant_icon.icon"))
+
         # 创建中央部件
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
@@ -93,7 +95,7 @@ class ValorantWizard(QMainWindow):
         content_container.setObjectName("contentContainer")
         content_container.setStyleSheet("""
             #contentContainer {
-                background-color: white;
+                background-color: #f0f0f0;
             }
         """)
         
@@ -251,6 +253,10 @@ class ValorantWizard(QMainWindow):
     def go_to_prev_step(self):
         """返回上一步"""
         if self.current_step > 0:  # 确保不是第一步
+            # 如果从第二步返回第一步，重新显示第一步的内容
+            if self.current_step == 1:
+                self.step_one.show_content()
+                
             self.current_step -= 1
             self.stacked_widget.setCurrentIndex(self.current_step)
             
