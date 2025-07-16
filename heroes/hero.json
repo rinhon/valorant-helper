@@ -1,0 +1,31 @@
+{
+  "hero": [
+    { "number": "01", "Chines_name": "铁壁" ,"name":"Ironclad"},
+    { "number": "02", "Chines_name": "捷风" },
+    { "number": "03", "Chines_name": "雷兹" },
+    { "number": "04", "Chines_name": "幽影" },
+    { "number": "05", "Chines_name": "炼狱" },
+    { "number": "06", "Chines_name": "不死鸟" },
+    { "number": "07", "Chines_name": "贤者" },
+    { "number": "08", "Chines_name": "猎枭" },
+    { "number": "09", "Chines_name": "蝰蛇" },
+    { "number": "10", "Chines_name": "零" },
+    { "number": "11", "Chines_name": "瑞纳" },
+    { "number": "12", "Chines_name": "奇乐" },
+    { "number": "13", "Chines_name": "斯凯" },
+    { "number": "14", "Chines_name": "夜露" },
+    { "number": "15", "Chines_name": "星礈" },
+    { "number": "16", "Chines_name": "K/O" },
+    { "number": "17", "Chines_name": "尚博勒" },
+    { "number": "18", "Chines_name": "霓虹" },
+    { "number": "19", "Chines_name": "黑梦" },
+    { "number": "20", "Chines_name": "海神" },
+    { "number": "21", "Chines_name": "盖可" },
+    { "number": "22", "Chines_name": "钢锁" },
+    { "number": "23", "Chines_name": "壹决" },
+    { "number": "24", "Chines_name": "暮蝶" },
+    { "number": "25", "Chines_name": "维斯" },
+    { "number": "26", "Chines_name": "钛狐" },
+    { "number": "27", "Chines_name": "幻棱" }
+  ]
+}
