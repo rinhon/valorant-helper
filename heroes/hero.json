@@ -1,31 +1,336 @@
 {
-  "hero": [
-    { "number": "01", "Chines_name": "铁壁" ,"name":"Ironclad"},
-    { "number": "02", "Chines_name": "捷风" },
-    { "number": "03", "Chines_name": "雷兹" },
-    { "number": "04", "Chines_name": "幽影" },
-    { "number": "05", "Chines_name": "炼狱" },
-    { "number": "06", "Chines_name": "不死鸟" },
-    { "number": "07", "Chines_name": "贤者" },
-    { "number": "08", "Chines_name": "猎枭" },
-    { "number": "09", "Chines_name": "蝰蛇" },
-    { "number": "10", "Chines_name": "零" },
-    { "number": "11", "Chines_name": "瑞纳" },
-    { "number": "12", "Chines_name": "奇乐" },
-    { "number": "13", "Chines_name": "斯凯" },
-    { "number": "14", "Chines_name": "夜露" },
-    { "number": "15", "Chines_name": "星礈" },
-    { "number": "16", "Chines_name": "K/O" },
-    { "number": "17", "Chines_name": "尚博勒" },
-    { "number": "18", "Chines_name": "霓虹" },
-    { "number": "19", "Chines_name": "黑梦" },
-    { "number": "20", "Chines_name": "海神" },
-    { "number": "21", "Chines_name": "盖可" },
-    { "number": "22", "Chines_name": "钢锁" },
-    { "number": "23", "Chines_name": "壹决" },
-    { "number": "24", "Chines_name": "暮蝶" },
-    { "number": "25", "Chines_name": "维斯" },
-    { "number": "26", "Chines_name": "钛狐" },
-    { "number": "27", "Chines_name": "幻棱" }
-  ]
+  "heroes": {
+    "Duelers": [
+      {
+        "number": "02",
+        "Chinese_name": "捷风",
+        "name": "Jett",
+        "avatar": "heroes/Jett/02.png",
+        "skill": {
+          "c": "heroes/Jett/02_c.png",
+          "q": "heroes/Jett/02_q.png",
+          "e": "heroes/Jett/02_e.png",
+          "x": "heroes/Jett/02_x.png"
+        }
+      },
+      {
+        "number": "03",
+        "Chinese_name": "雷兹",
+        "name": "Raze",
+        "avatar": "heroes/Raze/03.png",
+        "skill": {
+          "c": "heroes/Raze/03_c.png",
+          "q": "heroes/Raze/03_q.png",
+          "e": "heroes/Raze/03_e.png",
+          "x": "heroes/Raze/03_x.png"
+        }
+      },
+      {
+        "number": "06",
+        "Chinese_name": "不死鸟",
+        "name": "Phoenix",
+        "avatar": "heroes/Phoenix/06.png",
+        "skill": {
+          "c": "heroes/Phoenix/06_c.png",
+          "q": "heroes/Phoenix/06_q.png",
+          "e": "heroes/Phoenix/06_e.png",
+          "x": "heroes/Phoenix/06_x.png"
+        }
+      },
+      {
+        "number": "11",
+        "Chinese_name": "瑞纳",
+        "name": "Rayna",
+        "avatar": "heroes/Rayna/11.png",
+        "skill": {
+          "c": "heroes/Rayna/11_c.png",
+          "q": "heroes/Rayna/11_q.png",
+          "e": "heroes/Rayna/11_e.png",
+          "x": "heroes/Rayna/11_x.png"
+        }
+      },
+      {
+        "number": "14",
+        "Chinese_name": "夜露",
+        "name": "Yoru",
+        "avatar": "heroes/Yoru/14.png",
+        "skill": {
+          "c": "heroes/Yoru/14_c.png",
+          "q": "heroes/Yoru/14_q.png",
+          "e": "heroes/Yoru/14_e.png",
+          "x": "heroes/Yoru/14_x.png"
+        }
+      },
+      {
+        "number": "27",
+        "Chinese_name": "幻棱",
+        "name": "Waylay",
+        "avatar": "heroes/Waylay/27.png",
+        "skill": {
+          "c": "heroes/Waylay/27_c.png",
+          "q": "heroes/Waylay/27_q.png",
+          "e": "heroes/Waylay/27_e.png",
+          "x": "heroes/Waylay/27_x.png"
+        }
+      },
+      {
+        "number": "18",
+        "Chinese_name": "霓虹",
+        "name": "Neon",
+        "avatar": "heroes/Neon/18.png",
+        "skill": {
+          "c": "heroes/Neon/18_c.png",
+          "q": "heroes/Neon/18_q.png",
+          "e": "heroes/Neon/18_e.png",
+          "x": "heroes/Neon/18_x.png"
+        }
+      },
+      {
+        "number": "23",
+        "Chinese_name": "壹决",
+        "name": "Iso",
+        "avatar": "heroes/Iso/23.png",
+        "skill": {
+          "c": "heroes/Iso/23_c.png",
+          "q": "heroes/Iso/23_q.png",
+          "e": "heroes/Iso/23_e.png",
+          "x": "heroes/Iso/23_x.png"
+        }
+      }
+    ],
+    "Controllers": [
+      {
+        "number": "04",
+        "Chinese_name": "幽影",
+        "name": "Omen",
+        "avatar": "heroes/Omen/04.png",
+        "skill": {
+          "c": "heroes/Omen/04_c.png",
+          "q": "heroes/Omen/04_q.png",
+          "e": "heroes/Omen/04_e.png",
+          "x": "heroes/Omen/04_x.png"
+        }
+      },
+      {
+        "number": "05",
+        "Chinese_name": "炼狱",
+        "name": "Brimstone",
+        "avatar": "heroes/Brimstone/05.png",
+        "skill": {
+          "c": "heroes/Brimstone/05_c.png",
+          "q": "heroes/Brimstone/05_q.png",
+          "e": "heroes/Brimstone/05_e.png",
+          "x": "heroes/Brimstone/05_x.png"
+        }
+      },
+      {
+        "number": "09",
+        "Chinese_name": "蝰蛇",
+        "name": "Viper",
+        "avatar": "heroes/Viper/09.png",
+        "skill": {
+          "c": "heroes/Viper/09_c.png",
+          "q": "heroes/Viper/09_q.png",
+          "e": "heroes/Viper/09_e.png",
+          "x": "heroes/Viper/09_x.png"
+        }
+      },
+      {
+        "number": "20",
+        "Chinese_name": "海神",
+        "name": "Harbor",
+        "avatar": "heroes/Harbor/20.png",
+        "skill": {
+          "c": "heroes/Harbor/20_c.png",
+          "q": "heroes/Harbor/20_q.png",
+          "e": "heroes/Harbor/20_e.png",
+          "x": "heroes/Harbor/20_x.png"
+        }
+      },
+      {
+        "number": "24",
+        "Chinese_name": "暮蝶",
+        "name": "Clover",
+        "avatar": "heroes/Clover/24.png",
+        "skill": {
+          "c": "heroes/Clover/24_c.png",
+          "q": "heroes/Clover/24_q.png",
+          "e": "heroes/Clover/24_e.png",
+          "x": "heroes/Clover/24_x.png"
+        }
+      },
+      {
+        "number": "15",
+        "Chinese_name": "星礈",
+        "name": "Astra",
+        "avatar": "heroes/Astra/15.png",
+        "skill": {
+          "c": "heroes/Astra/15_c.png",
+          "q": "heroes/Astra/15_q.png",
+          "e": "heroes/Astra/15_e.png",
+          "x": "heroes/Astra/15_x.png"
+        }
+      }
+    ],
+    "Sentinels": [
+      {
+        "number": "01",
+        "Chinese_name": "铁壁",
+        "name": "Breach",
+        "avatar": "heroes/Breach/01.png",
+        "skill": {
+          "c": "heroes/Breach/01_c.png",
+          "q": "heroes/Breach/01_q.png",
+          "e": "heroes/Breach/01_e.png",
+          "x": "heroes/Breach/01_x.png"
+        }
+      },
+      {
+        "number": "08",
+        "Chinese_name": "猎枭",
+        "name": "Sova",
+        "avatar": "heroes/Sova/08.png",
+        "skill": {
+          "c": "heroes/Sova/08_c.png",
+          "q": "heroes/Sova/08_q.png",
+          "e": "heroes/Sova/08_e.png",
+          "x": "heroes/Sova/08_x.png"
+        }
+      },
+      {
+        "number": "13",
+        "Chinese_name": "斯凯",
+        "name": "Skye",
+        "avatar": "heroes/Skye/13.png",
+        "skill": {
+          "c": "heroes/Skye/13_c.png",
+          "q": "heroes/Skye/13_q.png",
+          "e": "heroes/Skye/13_e.png",
+          "x": "heroes/Skye/13_x.png"
+        }
+      },
+      {
+        "number": "19",
+        "Chinese_name": "黑梦",
+        "name": "Fade",
+        "avatar": "heroes/Fade/19.png",
+        "skill": {
+          "c": "heroes/Fade/19_c.png",
+          "q": "heroes/Fade/19_q.png",
+          "e": "heroes/Fade/19_e.png",
+          "x": "heroes/Fade/19_x.png"
+        }
+      },
+      {
+        "number": "21",
+        "Chinese_name": "盖可",
+        "name": "Gekko",
+        "avatar": "heroes/Gekko/21.png",
+        "skill": {
+          "c": "heroes/Gekko/21_c.png",
+          "q": "heroes/Gekko/21_q.png",
+          "e": "heroes/Gekko/21_e.png",
+          "x": "heroes/Gekko/21_x.png"
+        }
+      },
+      {
+        "number": "26",
+        "Chinese_name": "钛狐",
+        "name": "Tejo",
+        "avatar": "heroes/Tejo/26.png",
+        "skill": {
+          "c": "heroes/Tejo/26_c.png",
+          "q": "heroes/Tejo/26_q.png",
+          "e": "heroes/Tejo/26_e.png",
+          "x": "heroes/Tejo/26_x.png"
+        }
+      }
+    ],
+    "Guardians": [
+      {
+        "number": "07",
+        "Chinese_name": "贤者",
+        "name": "Sage",
+        "avatar": "heroes/Sage/07.png",
+        "skill": {
+          "c": "heroes/Sage/07_c.png",
+          "q": "heroes/Sage/07_q.png",
+          "e": "heroes/Sage/07_e.png",
+          "x": "heroes/Sage/07_x.png"
+        }
+      },
+      {
+        "number": "10",
+        "Chinese_name": "零",
+        "name": "Cypher",
+        "avatar": "heroes/Cypher/10.png",
+        "skill": {
+          "c": "heroes/Cypher/10_c.png",
+          "q": "heroes/Cypher/10_q.png",
+          "e": "heroes/Cypher/10_e.png",
+          "x": "heroes/Cypher/10_x.png"
+        }
+      },
+      {
+        "number": "12",
+        "Chinese_name": "奇乐",
+        "name": "killjoy",
+        "avatar": "heroes/killjoy/12.png",
+        "skill": {
+          "c": "heroes/killjoy/12_c.png",
+          "q": "heroes/killjoy/12_q.png",
+          "e": "heroes/killjoy/12_e.png",
+          "x": "heroes/killjoy/12_x.png"
+        }
+      },
+      {
+        "number": "16",
+        "Chinese_name": "K/O",
+        "name": "KAY/O",
+        "avatar": "heroes/KAY_O/16.png",
+        "skill": {
+          "c": "heroes/KAY_O/16_c.png",
+          "q": "heroes/KAY_O/16_q.png",
+          "e": "heroes/KAY_O/16_e.png",
+          "x": "heroes/KAY_O/16_x.png"
+        }
+      },
+      {
+        "number": "17",
+        "Chinese_name": "尚博勒",
+        "name": "Chamber",
+        "avatar": "heroes/Chamber/17.png",
+        "skill": {
+          "c": "heroes/Chamber/17_c.png",
+          "q": "heroes/Chamber/17_q.png",
+          "e": "heroes/Chamber/17_e.png",
+          "x": "heroes/Chamber/17_x.png"
+        }
+      },
+      {
+        "number": "22",
+        "Chinese_name": "钢锁",
+        "name": "DeadLock",
+        "avatar": "heroes/DeadLock/22.png",
+        "skill": {
+          "c": "heroes/DeadLock/22_c.png",
+          "q": "heroes/DeadLock/22_q.png",
+          "e": "heroes/DeadLock/22_e.png",
+          "x": "heroes/DeadLock/22_x.png"
+        }
+      },
+      {
+        "number": "25",
+        "Chinese_name": "维斯",
+        "name": "Vyse",
+        "avatar": "heroes/Vyse/25.png",
+        "skill": {
+          "c": "heroes/Vyse/25_c.png",
+          "q": "heroes/Vyse/25_q.png",
+          "e": "heroes/Vyse/25_e.png",
+          "x": "heroes/Vyse/25_x.png"
+        }
+      }
+    ]
+  }
 }

@@ -1,13 +1,13 @@
 import json
 import os
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QWidget, QGridLayout, QSizePolicy, QLabel, QFrame, QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QWidget, QGridLayout, QSizePolicy, QLabel, QFrame, QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtCore import Qt, QSize, pyqtSignal, QPropertyAnimation, QParallelAnimationGroup, QPointF
 from PyQt5.QtGui import QFont, QResizeEvent, QPixmap, QColor
 from qfluentwidgets import (
     BodyLabel, 
     PushButton, 
     FluentIcon,
-    ScrollArea
+    ScrollArea,PopupTeachingTip,InfoBarIcon,TeachingTipTailPosition
 )
 
 class MapLabel(QLabel):
@@ -177,6 +177,7 @@ class MapLabel(QLabel):
 class StepOne(QWidget):
     # 信号定义
     map_selected = pyqtSignal(dict)  # 发送选定的地图数据
+    next_step_requested = pyqtSignal()
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -195,6 +196,48 @@ class StepOne(QWidget):
         # 创建内容区域
         self.create_content_area()
         
+         # 创建底部导航区域
+        self.create_bottom_nav()
+        
+    def create_bottom_nav(self):
+        """创建底部导航区域"""
+        # 创建底部导航容器
+        bottom_nav = QWidget()
+        bottom_nav.setObjectName("bottomNav")
+        bottom_nav.setStyleSheet("""
+            #bottomNav {
+                background-color: #f5f5f5;
+                min-height: 60px;
+                border-top: 1px solid #e0e0e0;
+            }
+        """)
+        
+        # 创建底部导航布局
+        nav_layout = QHBoxLayout(bottom_nav)
+        nav_layout.setContentsMargins(20, 0, 20, 0)
+        
+        # 添加伸展因子
+        nav_layout.addStretch(1)
+        
+        # 创建下一步按钮
+        self.next_button = PushButton("下一步")
+        self.next_button.setIcon(FluentIcon.CHEVRON_RIGHT)
+        self.next_button.setProperty("iconPosition", "right")
+        self.next_button.clicked.connect(self.on_next_step)
+        self.next_button.setEnabled(False)  # 初始禁用
+        
+        # 将按钮添加到布局
+        nav_layout.addWidget(self.next_button)
+        
+        # 将底部导航添加到主布局
+        self.main_layout.addWidget(bottom_nav)
+    
+    def on_next_step(self):
+        """处理下一步按钮点击"""
+        if self.selected_map:
+            self.map_selected.emit(self.selected_map)  # 确保发送地图数据
+            self.next_step_requested.emit()   
+    
     def load_maps_data(self):
         """从maps.json加载地图数据"""
         try:
@@ -264,6 +307,9 @@ class StepOne(QWidget):
             
             # 发送选择的地图信号
             self.map_selected.emit(map_data)
+            
+            # 启用下一步按钮
+            self.next_button.setEnabled(True)
 
     def update_grid_layout(self):
         """更新网格布局"""

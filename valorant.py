@@ -18,12 +18,15 @@ from qfluentwidgets import (
     NavigationDisplayMode,
     FluentIcon,
     PushButton,
-    BodyLabel
+    BodyLabel,PopupTeachingTip ,
+    InfoBarIcon,TeachingTipTailPosition,
 )
 
 # 导入步骤模块
 from step_one import StepOne
 from step_two import StepTwo
+from step_three import StepThree
+from step_four import StepFour
 
 class ValorantWizard(QMainWindow):
     def __init__(self):
@@ -50,15 +53,14 @@ class ValorantWizard(QMainWindow):
         # 创建内容区域
         self.create_content_area()
         
-        # 创建底部导航区域
-        self.create_bottom_nav()
-        
         # 初始化步骤
         self.current_step = 0
         self.update_step_indicator()
         
-        # 存储选择的地图数据
+        # 存储选择的数据
         self.selected_map = None
+        self.selected_hero = None
+        self.selected_side = None
     
     def create_title_area(self):
         """创建标题区域"""
@@ -131,6 +133,14 @@ class ValorantWizard(QMainWindow):
         step2_label = BodyLabel("2. 选择英雄")
         self.step_labels.append(step2_label)
         
+        # 步骤3: 选择攻防
+        step3_label = BodyLabel("3. 选择攻防")
+        self.step_labels.append(step3_label)
+        
+        # 步骤4: 技能选择
+        step4_label = BodyLabel("4. 技能选择")
+        self.step_labels.append(step4_label)
+        
         # 添加步骤标签到布局
         for label in self.step_labels:
             step_layout.addWidget(label)
@@ -151,120 +161,52 @@ class ValorantWizard(QMainWindow):
         # 创建步骤1: 选择地图
         self.step_one = StepOne()
         self.step_one.map_selected.connect(self.on_map_selected)
+        self.step_one.next_step_requested.connect(self.go_to_next_step)
         
         # 创建步骤2: 选择英雄
         self.step_two = StepTwo()
+        self.step_two.hero_selected.connect(self.on_hero_selected)
+        self.step_two.prev_step_requested.connect(self.go_to_prev_step)
+        self.step_two.next_step_requested.connect(self.go_to_next_step)
+        
+        # 创建步骤3: 选择攻防
+        self.step_three = StepThree()
+        self.step_three.side_selected.connect(self.on_side_selected)
+        
+        # 创建步骤4: 技能选择
+        self.step_four = StepFour()
+        self.step_four.next_step_requested.connect(self.go_to_next_step)
         
         # 将步骤添加到堆叠部件
         self.stacked_widget.addWidget(self.step_one)
         self.stacked_widget.addWidget(self.step_two)
-        
+        self.stacked_widget.addWidget(self.step_three)
+        self.stacked_widget.addWidget(self.step_four)
+
         # 将堆叠部件添加到内容布局
         content_layout.addWidget(self.stacked_widget)
         
         # 将内容容器添加到主布局
         self.main_layout.addWidget(content_container, 1)  # 添加伸展因子
     
-    def create_bottom_nav(self):
-        """创建底部导航区域"""
-        # 创建底部导航容器
-        bottom_nav = QWidget()
-        bottom_nav.setObjectName("bottomNav")
-        bottom_nav.setStyleSheet("""
-            #bottomNav {
-                background-color: #f5f5f5;
-                min-height: 60px;
-                border-top: 1px solid #e0e0e0;
-            }
-        """)
-        
-        # 创建底部导航布局
-        nav_layout = QHBoxLayout(bottom_nav)
-        nav_layout.setContentsMargins(20, 0, 20, 0)
-        
-        # 添加伸展因子
-        nav_layout.addStretch(1)
-        
-        # 创建上一步按钮
-        self.prev_button = PushButton("上一步")
-        # 使用向左的箭头图标，尝试几种可能的名称
-        try:
-            # 尝试使用LEFT图标
-            self.prev_button.setIcon(FluentIcon.LEFT)
-        except:
-            try:
-                # 尝试使用BACK图标
-                self.prev_button.setIcon(FluentIcon.BACK)
-            except:
-                # 如果都不存在，则不设置图标
-                pass
-        self.prev_button.clicked.connect(self.go_to_prev_step)
-        self.prev_button.setEnabled(False)  # 初始禁用
-        
-        # 创建下一步按钮
-        self.next_button = PushButton("下一步")
-        self.next_button.setIcon(FluentIcon.CHEVRON_RIGHT)
-        # PushButton没有setIconRight方法，尝试使用其他方式设置图标位置
-        try:
-            # 尝试使用其他可能的方法设置图标位置
-            self.next_button.setProperty("iconPosition", "right")
-        except:
-            # 如果没有合适的方法，就不设置图标位置
-            pass
-        self.next_button.clicked.connect(self.go_to_next_step)
-        
-        # 将按钮添加到布局
-        nav_layout.addWidget(self.prev_button)
-        nav_layout.addSpacing(10)
-        nav_layout.addWidget(self.next_button)
-        
-        # 将底部导航添加到主布局
-        self.main_layout.addWidget(bottom_nav)
-    
     def on_map_selected(self, map_data):
         """处理地图选择事件"""
         self.selected_map = map_data
-        print(f"主窗口接收到选择的地图: {map_data.get('chinese')}")
+        self.step_two.set_map_data(map_data)  # 将地图数据传递给step_two
+        print(f"主窗口接收到选择的地图: {map_data.get('chinese')} ({map_data.get('english')})")
     
-    def go_to_next_step(self):
-        """前往下一步"""
-        if self.current_step == 0:  # 当前在第一步
-            # 检查是否已选择地图
-            if not self.selected_map:
-                print("请先选择一个地图")
-                return
-            
-            # 清空step_one的内容
-            self.step_one.clear_content()
-            
-            # 将选择的地图传递给step_two
-            self.step_two.set_map_data(self.selected_map)
-            
-            # 切换到下一步
-            self.current_step = 1
-            self.stacked_widget.setCurrentIndex(self.current_step)
-            
-            # 更新按钮状态
-            self.prev_button.setEnabled(True)
-            
-            # 更新步骤指示器
-            self.update_step_indicator()
+    def on_hero_selected(self, hero_data):
+        """处理英雄选择事件"""
+        self.selected_hero = hero_data
+        chinese_name = hero_data.get('Chinese_name')
+        hear_name = hero_data.get('name')
+        print(f"主窗口接收到选择的英雄: {chinese_name} ({hear_name})")
     
-    def go_to_prev_step(self):
-        """返回上一步"""
-        if self.current_step > 0:  # 确保不是第一步
-            # 如果从第二步返回第一步，重新显示第一步的内容
-            if self.current_step == 1:
-                self.step_one.show_content()
-                
-            self.current_step -= 1
-            self.stacked_widget.setCurrentIndex(self.current_step)
-            
-            # 更新按钮状态
-            self.prev_button.setEnabled(self.current_step > 0)
-            
-            # 更新步骤指示器
-            self.update_step_indicator()
+    def on_side_selected(self, side_data):
+        """处理地图选择事件"""
+        self.selected_side = side_data
+        print(f"主窗口接收到选择的攻防: {side_data}")
+        self.go_to_next_step()  # 自动导航到下一步
     
     def update_step_indicator(self):
         """更新步骤指示器"""
@@ -277,6 +219,20 @@ class ValorantWizard(QMainWindow):
                 """)
             else:
                 label.setStyleSheet("")
+
+    def go_to_next_step(self):
+        """切换到下一步"""
+        if self.current_step < 3:  # 0=step1, 1=step2, 2=step3, 3=step4
+            self.current_step += 1
+            self.stacked_widget.setCurrentIndex(self.current_step)
+            self.update_step_indicator()
+
+    def go_to_prev_step(self):
+        """切换到上一步"""
+        if self.current_step > 0:
+            self.current_step -= 1
+            self.stacked_widget.setCurrentIndex(self.current_step)
+            self.update_step_indicator()
 
 if __name__ == "__main__":
     # 创建应用程序
