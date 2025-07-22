@@ -1,40 +1,70 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QLabel, QFrame
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt,pyqtSignal
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QColor
 from qfluentwidgets import (
     ComboBox, LineEdit, PlainTextEdit, PushButton, 
     FluentIcon, CardWidget, ScrollArea, setTheme, Theme
 )
+from qfluentwidgets import FluentIcon as FIF
 
-class ImageUploadCard(CardWidget):
-    def __init__(self, parent=None):
+class ImageDisplayCard(CardWidget):
+    """单个图片显示卡片"""
+    removeClicked = pyqtSignal(str)  # 发射要删除的图片路径
+    
+    def __init__(self, image_path, parent=None):
         super().__init__(parent)
-        self.setFixedSize(300, 200)
+        self.image_path = image_path
+        self.setFixedSize(200, 180)
         
         layout = QVBoxLayout(self)
         
-        # 创建图片显示区域
+        # 图片显示区域
         self.image_label = QLabel()
+        self.image_label.setFixedSize(180, 140)
         self.image_label.setAlignment(Qt.AlignCenter)
         self.image_label.setStyleSheet("""
             QLabel {
-                border: 2px dashed #C0C0C0;
+                border: 1px solid #E0E0E0;
                 border-radius: 8px;
-                background-color: #F5F5F5;
-                color: #888888;
+                background-color: white;
             }
         """)
-        self.image_label.setFixedSize(280, 160)
         
-        # 设置默认图标
-        self.image_label.setText("📷")
-        self.image_label.setStyleSheet(self.image_label.styleSheet() + "font-size: 48px;")
+        # 加载并显示图片
+        self.load_image()
+        
+        # 删除按钮
+        self.remove_button = PushButton("删除", self)
+        self.remove_button.setIcon(FIF.DELETE)
+        self.remove_button.setFixedHeight(30)
+        self.remove_button.clicked.connect(self.on_remove_clicked)
         
         layout.addWidget(self.image_label)
+        layout.addWidget(self.remove_button)
         layout.setContentsMargins(10, 10, 10, 10)
-
-class FormPage(QWidget):
+        layout.setSpacing(8)
+    
+    def load_image(self):
+        """加载并显示图片"""
+        pixmap = QPixmap(self.image_path)
+        if not pixmap.isNull():
+            # 按比例缩放图片以适应标签大小
+            scaled_pixmap = pixmap.scaled(
+                self.image_label.size(), 
+                Qt.KeepAspectRatio, 
+                Qt.SmoothTransformation
+            )
+            self.image_label.setPixmap(scaled_pixmap)
+        else:
+            self.image_label.setText("❌\n图片加载失败")
+            self.image_label.setStyleSheet(self.image_label.styleSheet() + 
+                                         "color: #FF6B6B; font-size: 14px;")
+    
+    def on_remove_clicked(self):
+        """处理删除按钮点击"""
+        self.removeClicked.emit(self.image_path)
+class AddPointPage(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("表单页面")
@@ -110,8 +140,8 @@ class FormPage(QWidget):
         position_label.setStyleSheet("font-weight: bold; margin-top: 10px;")
         position_layout.addWidget(position_label)
         
-        position_image_card = ImageUploadCard()
-        position_layout.addWidget(position_image_card)
+        # position_image_card = ImageDisplayCard()
+        # position_layout.addWidget(position_image_card)
         
         # 右侧：描点
         point_layout = QVBoxLayout()
@@ -131,8 +161,8 @@ class FormPage(QWidget):
         point_label.setStyleSheet("font-weight: bold; margin-top: 10px;")
         point_layout.addWidget(point_label)
         
-        point_image_card = ImageUploadCard()
-        point_layout.addWidget(point_image_card)
+        # point_image_card = ImageDisplayCard()
+        # point_layout.addWidget(point_image_card)
         
         second_row_layout.addLayout(position_layout)
         second_row_layout.addSpacing(50)
@@ -162,8 +192,8 @@ class FormPage(QWidget):
         drop_label.setStyleSheet("font-weight: bold; margin-top: 10px;")
         drop_layout.addWidget(drop_label)
         
-        drop_image_card = ImageUploadCard()
-        drop_layout.addWidget(drop_image_card)
+        # drop_image_card = ImageDisplayCard()
+        # drop_layout.addWidget(drop_image_card)
         
         # 右侧：点位备注
         note_layout = QVBoxLayout()
@@ -206,13 +236,3 @@ class FormPage(QWidget):
         print("保存数据...")
         # 在这里添加保存逻辑
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    
-    # 设置应用样式
-    app.setStyle('Fusion')
-    
-    window = FormPage()
-    window.show()
-    
-    sys.exit(app.exec_())

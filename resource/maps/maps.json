@@ -1,0 +1,59 @@
+{
+  "maps": [
+    {
+      "name": "Ascent",
+      "chinese_name": "亚海悬城",
+      "url": "resource/maps/ascent_cover.png"
+    },
+    {
+      "name": "Breeze",
+      "chinese_name": "微风岛屿",
+      "url": "resource/maps/breeze_cover.png"
+    },
+    {
+      "name": "Haven",
+      "chinese_name": "隐士修所",
+      "url": "resource/maps/haven_cover.png"
+    },
+    {
+      "name": "Split",
+      "chinese_name": "霓虹町",
+      "url": "resource/maps/split_cover.png"
+    },
+    {
+      "name": "Icebox",
+      "chinese_name": "森寒冬港",
+      "url": "resource/maps/icebox_cover.png"
+    },
+    {
+      "name": "Lotus",
+      "chinese_name": "莲花古城",
+      "url": "resource/maps/lotus_cover.png"
+    },
+    {
+      "name": "Sunset",
+      "chinese_name": "日落之城",
+      "url": "resource/maps/sunset_cover.png"
+    },
+    {
+      "name": "Abyss",
+      "chinese_name": "幽邃地窟",
+      "url": "resource/maps/abyss_cover.png"
+    },
+    {
+      "name": "Pearl",
+      "chinese_name": "深海明珠",
+      "url": "resource/maps/pearl_cover.png"
+    },
+    {
+      "name": "Corrode",
+      "chinese_name": "盐海矿镇",
+      "url": "resource/maps/corrode_cover.png"
+    },
+    {
+      "name": "Bind",
+      "chinese_name": "源工重镇",
+      "url": "resource/maps/bind_cover.png"
+    }
+  ]
+}
