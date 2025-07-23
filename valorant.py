@@ -1,5 +1,5 @@
 from qfluentwidgets import FluentIcon, PushButton, BodyLabel, ComboBox, SwitchButton, IndicatorPosition, ExpandGroupSettingCard, PrimaryToolButton, PrimaryPushButton, ToolButton
-from qfluentwidgets import NavigationItemPosition, FluentWindow, SubtitleLabel, setFont, setTheme, Theme
+from qfluentwidgets import NavigationItemPosition, MSFluentWindow, SubtitleLabel, setFont, setTheme, Theme
 from components.upload import AddPointPage
 from qfluentwidgets import FluentIcon as FIF
 import time
@@ -15,7 +15,7 @@ from qfluentwidgets import (NavigationInterface, NavigationItemPosition, PushBut
                          FlowLayout,   FluentIcon, CardWidget, qrouter, setTheme, Theme)
 import sys
 from components.home import Home # Assuming home.py is in the same directory
-
+from components.queryPage import QueryPage # Assuming upload.py is in the same directory
 
 
 class ValorantMainWindow(QMainWindow):
@@ -33,24 +33,24 @@ class ValorantMainWindow(QMainWindow):
         self.setObjectName(text.replace(' ', '-'))
 
 
-class Window(FluentWindow):
+class Window(MSFluentWindow):
     """ 主界面 """
 
     def __init__(self):
         super().__init__()
 
         # 主界面 功能：1.查询点位 新增点位
-        self.homeInterface = Home()
-        self.homeInterface.setObjectName("主页")  # 添加这一行
+        self.homeInterface = Home(self)
+        self.homeInterface.setObjectName("主页")  
         
-        self.qureyPointInterface = CardWidget( self)
-        self.qureyPointInterface.setObjectName("查询点位")  # 添加这一行
-
+        self.qureyPointInterface = QueryPage( )
+        self.qureyPointInterface.setObjectName("查询点位")  
+        
         self.addNewPointInterface = AddPointPage()
-        self.addNewPointInterface.setObjectName("新增点位")  # 添加这一行
+        self.addNewPointInterface.setObjectName("新增点位")  
 
         self.settingInterface = CardWidget( self)
-        self.settingInterface.setObjectName("设置")  # 添加这一行
+        self.settingInterface.setObjectName("设置")  
 
         self.initNavigation()
         self.initWindow()
@@ -60,7 +60,7 @@ class Window(FluentWindow):
         self.addSubInterface(self.homeInterface, FIF.HOME, '主页')
 
         # 添加分隔符
-        self.navigationInterface.addSeparator()
+        # self.navigationInterface.addSeparator()
 
         self.addSubInterface(self.qureyPointInterface, FIF.SEARCH, '查询点位')
         self.addSubInterface(self.addNewPointInterface, FIF.ADD, '新增点位')
@@ -74,6 +74,19 @@ class Window(FluentWindow):
         self.setWindowIcon(QIcon('./resource/icon/valorant_icon.icon'))
         self.setWindowTitle('究极无敌打瓦神器')
 
+    def switchToInterface(self, routeKey: str):
+        """根据路由键切换界面"""
+        interface_map = {
+            "home": self.homeInterface,
+            "add": self.addNewPointInterface,
+            "query": self.qureyPointInterface,
+            "settings": self.settingInterface
+        }
+        
+        if routeKey in interface_map:
+            self.switchTo(interface_map[routeKey])
+            self.navigationInterface.setCurrentItem(routeKey)
+        
 
 if __name__ == '__main__':
     # 启用高DPI缩放

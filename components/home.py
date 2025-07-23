@@ -3,8 +3,10 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 from PyQt5.QtCore import Qt,QSize
 from PyQt5.QtGui import QPixmap,QColor
 from PyQt5.QtWidgets import QStackedWidget, QLabel
-from qfluentwidgets import TitleLabel, BodyLabel, CardWidget, FluentIcon, ToolButton
+from qfluentwidgets import CardWidget, ImageLabel, CaptionLabel, FluentIcon, TransparentToolButton
 # from qfluentwidgets import *
+
+
 
 
 class Home(QWidget):
@@ -18,25 +20,21 @@ class Home(QWidget):
         self.layout = QHBoxLayout(self)
         self.layout.setAlignment(Qt.AlignCenter)
         # 添加跳转查询点位页面按钮
-        self.jumpQueryPage = ToolButton()
-        self.jumpQueryPage.setIcon(FluentIcon.SEARCH.colored(QColor(255, 255, 255), QColor(0, 0, 0)))
+        self.jumpQueryPageCard = CardWidget()
+        self.jumpQueryPage = TransparentToolButton()
+        self.jumpQueryPage.setIcon(FluentIcon.SEARCH.colored(QColor(255, 70, 84), QColor(0, 0, 0)))
         self.jumpQueryPage.setIconSize(QSize(150, 150))
         self.jumpQueryPage.setFixedSize(200, 200)  # 固定宽度 100，高度 40
-        self.jumpQueryPage.setStyleSheet("""
-                QPushButton {
-                    border: 2px solid transparent;  /* 默认透明边框 */
-                }
-                QPushButton:hover {
-                    border: 2px solid #0078D4;      /* 悬停时蓝色边框 */
-                }
-            """)
- 
+        # 点击跳转页面
+        self.jumpQueryPage.clicked.connect(lambda: parent.switchToInterface("query"))
+        
 
         # 添加新增点位页面按钮
-        self.jumpAddPage = ToolButton()
-        self.jumpAddPage.setIcon(FluentIcon.ADD)
+        self.jumpAddPage = TransparentToolButton()
+        self.jumpAddPage.setIcon(FluentIcon.ADD.colored(QColor(255, 70, 84), QColor(0, 0, 0)))
         self.jumpAddPage.setIconSize(QSize(150, 150))
         self.jumpAddPage.setFixedSize(200, 200)  # 固定宽度 200，高度 200
+        self.jumpAddPage.clicked.connect(lambda: parent.switchToInterface("add"))
 
         # self.jumpAddPage.setMinimumSize(50, 50)  # 最小尺寸
         # self.jumpAddPage.setMaximumSize(400, 400)  # 最大尺寸
